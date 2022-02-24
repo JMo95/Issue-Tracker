@@ -1,0 +1,187 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+.bg-purple {
+    background-color: #4650dd;
+    color: white;
+}
+
+.bg-yellow {
+    background-color: #ffe059;
+    color: #000;
+    font-weight: 700;
+}
+
+.scroll {
+    width: 50%;
+    top: 150px; /*Edited here */
+    bottom: 0; /*Edited here */
+    position: fixed;
+    overflow: hidden;
+    top: 150px;
+    left: 0;
+}
+@media only screen and (max-width: 950px) {
+    .notification-container {
+        display: block;
+        position: absolute;
+        left: 61%;
+    }
+}
+
+@media only screen and (min-width: 950px) {
+    .notification-container {
+        display: block;
+        position: absolute;
+        left: 68%;
+    }
+}
+
+    a.navbar-brand {
+        white-space: normal;
+        text-align: center;
+        word-break: break-all;
+    }
+
+    /* Provide sufficient contrast against white background */
+    a {
+        color: #0366d6;
+    }
+
+    .navbar-style {
+        border-bottom: 2px solid #7952B3;
+    }
+
+    .btn-primary {
+        color: #000000;
+        background-color: #1b6ec2;
+        border-color: #1861ac;
+    }
+
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        color: #000000;
+        background-color: #4650dd;
+        border-color: #4650dd;
+        border-radius: 0px;
+    }
+
+    .nav-link {
+        padding: .5rem 1.5rem;
+        color: #4650dd;
+        text-decoration: none;
+    }
+
+        .nav-link.active {
+            font-weight: bolder;
+            color: #fff !important;
+            background: #4650dd;
+        }
+
+        /*Turns hover off for active nav item but the hover stays until you move your mouse*/
+        .nav-link.active {
+            pointer-events: none;
+        }
+
+        .nav-link:hover {
+            background-color: #e9ecef;
+        }
+
+    .sidebar-heading {
+        margin-bottom: 0;
+        padding: 1.5rem;
+        color: #adb5bd;
+        font-size: .7875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: .2em;
+    }
+
+    /* Sticky footer styles
+-------------------------------------------------- */
+    html {
+        font-size: 14px;
+    }
+
+    @media (min-width: 768px) {
+        html {
+            font-size: 16px;
+        }
+    }
+
+    .border-top {
+        border-top: 1px solid #e5e5e5;
+    }
+
+    .border-bottom {
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .box-shadow {
+        box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    }
+
+    button.accept-policy {
+        font-size: 1rem;
+        line-height: inherit;
+    }
+
+    /* Sticky footer styles
+-------------------------------------------------- */
+    html {
+        position: relative;
+        height: 100%;
+    }
+
+    body {
+        /* Margin bottom by footer height */
+        font-family: "Roboto", sans-serif;
+        font-size: 1rem;
+        height: 100%;
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        white-space: nowrap;
+        line-height: 60px; /* Vertically center the text there */
+    }
+
+    /*for tab control*/
+    div.login-logout-tab div.card-header {
+        padding: 0px 0px 12px 0px;
+    }
+
+    div.login-logout-tab ul.nav-tabs {
+        margin: 0px 0px -12px 0px;
+    }
+
+    div.login-logout-tab li.nav-item {
+        width: 50%;
+    }
+
+    div.login-logout-tab a.nav-link {
+        font-size: 25px;
+        color: #495057;
+        text-align: center;
+    }
+
+    div.card-content {
+        padding: 10px 20px;
+    }
+
+    /*login form*/
+    div.login-form-icon {
+        text-align: center;
+    }
+
+    .padding-0 {
+        padding-right: 0;
+        padding-left: 0;
+        background-color: aqua;
+        color: aquamarine;
+    }
+
+    body {
+        background-color: #F8FAFD;
+    }

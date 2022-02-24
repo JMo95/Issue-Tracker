@@ -1,0 +1,54 @@
+﻿header {
+    margin-top: 40px;
+}
+body {
+    background-image: url("/img/5-dots.png");
+    background-attachment: fixed;
+}
+
+.center {
+    margin-left: 50%;
+    transform: translate(-50%,0);
+    width: 80%;
+    
+}
+
+
+/*for tab control*/
+div.login-logout-tab div.card-header {
+    padding: 0px 0px 12px 0px;
+}
+
+div.login-logout-tab ul.nav-tabs {
+    margin: 0px 0px -12px 0px;
+}
+
+div.login-logout-tab li.nav-item {
+    width: 50%;
+}
+
+div.login-logout-tab a.nav-link {
+    font-size: 25px;
+    color: #495057;
+    text-align: center;
+}
+
+div.card-content {
+    padding: 10px 20px;
+}
+
+/*login form*/
+div.login-form-icon {
+    text-align: center;
+}
+
+.bg-purple {
+    background-color: #4650dd;
+    color: white;
+}
+
+.bg-yellow {
+    background-color: #ffe059;
+    color: #000;
+    font-weight: 700;
+}

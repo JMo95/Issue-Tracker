@@ -1,0 +1,104 @@
+﻿@model Bug_Tracker_V1._0.ViewModels.TicketViewModels.TicketCreateViewModel
+@using Bug_Tracker_V1._0.BuisinessLogic.Models.Enums
+@using Bug_Tracker_V1._0.Models.Enums
+
+<head>
+    <link rel="stylesheet" href="~/css/TicketsIndex.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <section class="content">
+            <div class="row">
+
+
+
+                <!-- BEGIN TICKET -->
+                <div class="col-md-9">
+                    <div class="grid support-content">
+                        <div class="grid-body">
+                            <h2><b>Your Tickets</b></h2>
+                            <p>Click on a ticket to view its details.</p>
+                            <hr>
+
+                            <div class="btn-group">
+                                <!-- Need to count open tickets but also need to assign the tickets to open first -->
+                                <button type="button" class="btn btn-default active">
+                                    @Model.OpenTicketCount Open Tickets
+                                </button>
+                                <button type="button" class="btn btn-default">
+                                    @Model.ClosedTicketCount Closed Tickets
+                                </button>
+
+                            </div>
+                            <div class="btn-group">
+                                <button id="dropdownMenu" type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown"> <Strong>Sort By</Strong> <span class="caret"></span></button>
+                                <ul class="dropdown-menu fa-padding" role="menu" aria-labelledby="id=" dropdownMenu">
+                                    <li class="text-center"><a class="text-decoration-none" href="@Url.ActionLink("UserTicketList","Ticket",new { sortOrder = "Date_Asc" })"> Newest</a></li>
+                                    <li class="text-center"><a class="text-decoration-none" href="@Url.ActionLink("UserTicketList","Ticket",new { sortOrder = "Date_Desc" })"> Oldest</a></li>
+                                    <li class="text-center"><a class="text-decoration-none" href="@Url.ActionLink("UserTicketList","Ticket",new { sortOrder = "Status_Asc" })"> Status Asc</a></li>
+                                    <li class="text-center"><a class="text-decoration-none" href="@Url.ActionLink("UserTicketList","Ticket",new { sortOrder = "Status_Desc" })"> Status Desc</a></li>
+                                    <li class="text-center"><a class="text-decoration-none" href="@Url.ActionLink("UserTicketList","Ticket",new { sortOrder = "Priority_Asc" })"> Priority Asc</a></li>
+                                    <li class="text-center"><a class="text-decoration-none" href="@Url.ActionLink("UserTicketList","Ticket",new { sortOrder = "Priority_Desc" })"> Priority Desc</a></li>
+                                    <li class="text-center"><a class="text-decoration-none" href="@Url.ActionLink("UserTicketList","Ticket",new { sortOrder = "Type" })"> Type</a></li>
+                                    <li class="text-center"><a class="text-decoration-none" href="@Url.ActionLink("UserTicketList","Ticket",new { sortOrder = "Assigned_Asc" })"> Assigned Asc</a></li>
+                                    <li class="text-center"><a class="text-decoration-none" href="@Url.ActionLink("UserTicketList","Ticket",new { sortOrder = "Assigned_Desc" })"> Assigned Desc</a></li>
+                                </ul>
+                            </div>
+
+
+                            <!-- END NEW TICKET -->
+
+                            <div class="padding"></div>
+
+                            @foreach (var ticket in Model.UserTicketList)
+                            {
+
+                                if (Model.UserTicketList.Count() == 0)
+                                {
+                                    <p>No Tickets have been created for this project yet.</p>
+                                }
+                                else
+                                {
+
+                                    <div class="row">
+                                        <!-- BEGIN TICKET CONTENT -->
+                                        <ul class="list-group fa-padding">
+                                            <li class="list-group-item rounded-0" data-bs-target="#issue" onclick="location.href = '@(Url.Action("Details", "Ticket", new { id = ticket.Id }))'">
+                                                <div class="media">
+                                                    @Html.ActionLink("", "Details", "Ticket")
+                                                    <div class="media-body">
+                                                        <h6 class="pb-2"><b>@ticket.Title</b></h6><span class="number pull-right">#@ticket.Id</span>
+                                                        <p class="m-0 pb-2">
+                                                            <span class="label label-danger">Status: <span class="badge bg-success rounded-0">@ticket.Status</span></span>
+                                                            &emsp;
+                                                            <span class="label label-danger">Priority: <span class="badge bg-danger rounded-0">@ticket.Priority</span></span>
+                                                            &emsp;
+                                                            <span class="label label-danger">Type: <span class="badge bg-primary rounded-0">@ticket.Type</span></span>
+                                                        </p>
+                                                        <p class="info">
+                                                            Assigned To @ticket.AssignedTo &emsp; <i class="fa fa-comments"></i> @ticket.CommentCount Comments <a href="#"></a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                        </ul>
+
+                                        <!-- END DETAIL TICKET -->
+                                    </div>
+                                    <!-- END TICKET CONTENT -->
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <!-- END TICKET -->
+            </div>
+        </section>
+    </div>
+    <script type="text/javascript">
+
+    </script>
+</body>

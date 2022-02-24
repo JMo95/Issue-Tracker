@@ -1,0 +1,92 @@
+﻿.RowStyle {
+    width: 30%;
+    background-color: #ffffff;
+    outline: none;
+}
+
+.AttributeRow {
+        width: 60%;
+        outline: none;
+    }
+
+.scrollable {
+    max-height: 350.667px;
+    overflow-y: auto;
+}
+
+.card {
+    border: none;
+    box-shadow: 5px 6px 6px 2px #e9ecef;
+    border-radius: 4px;
+}
+.bg-purple {
+    background-color: #4650dd;
+    color: white;
+}
+.bg-test {
+    background-color: #ffe059;
+    color: #000;
+    font-weight: 700;
+}
+
+.dots {
+    height: 4px;
+    width: 4px;
+    margin-bottom: 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block
+}
+
+.user-img {
+    margin-bottom: 3vw;
+}
+
+.check-icon {
+    font-size: 17px;
+    color: #c3bfbf;
+    top: 1px;
+    position: relative;
+    margin-left: 3px
+}
+
+.form-check-input {
+    margin-top: 6px;
+    margin-left: -24px !important;
+    cursor: pointer
+}
+
+    .form-check-input:focus {
+        box-shadow: none
+    }
+
+.icons i {
+    margin-left: 8px
+}
+
+.reply {
+    margin-left: 12px
+}
+
+    .reply small {
+        color: #b7b4b4
+    }
+
+        .reply small:hover {
+            color: green;
+            cursor: pointer
+        }
+.usercontainer {
+    justify-content: left;
+    font-size: 2rem;
+
+}
+.commentcontainer {
+    justify-content: left;
+    font-size: 1rem;
+}
+
+.commentdate {
+    font-size: .75rem;
+    overflow: visible;
+}

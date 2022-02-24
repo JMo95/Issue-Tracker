@@ -1,0 +1,58 @@
+﻿@model Bug_Tracker_V1._0.ViewModels.AppUserViewModels.CollaborateViewModel
+@using Bug_Tracker_V1._0.BuisinessLogic.Models.Enums
+
+<link rel="stylesheet" href="~/css/TicketsIndex.css">
+
+<div class="container">
+    <div class="row">
+        @if (Model.UserRole == Role.Owner)
+        {
+        <div class="col card-white-bg">
+            <h4>Non-Collaborating Users</h4>
+            <form class="list-group" asp-action="CreateNotification">
+                @Html.HiddenFor(x => x.ProjectId)
+                <div class="form-group">
+                    <select multiple asp-for="SelectedCollaborators" asp-items="Model.NonCollaborators" class="form-control" onclick="enableInviteButton()"></select>
+                    <span asp-validation-for="SelectedCollaborators" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    Select a role
+                    <select asp-for="UserRole"
+                            class="form-control"
+                            asp-items="Html.GetEnumSelectList<Role>()">
+                    </select>
+                    <span asp-validation-for="UserRole" class="text-danger"></span>
+                </div>
+                <br>
+                <input id="createBtn" type="submit" disabled="disabled" class="btn bg-yellow-btn" value="Invite" />
+                <span asp-validation-for="SelectedCollaborators" class="text-danger"></span>
+            </form>
+
+
+        </div>
+        }
+
+        <div class="col card-white-bg">
+            <h4>Collaborating Users</h4>
+
+            <div class="list-group">
+
+
+                @foreach (var collabUser in Model.Collaborators)
+                {
+                    <button id="listItem" type="button" class="list-group-item list-group-item-action" aria-current="true">
+                        @collabUser.FirstName @collabUser.LastName
+                    </button>
+                }
+
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var enableInviteButton = function () {
+            $("#createBtn").removeAttr('disabled');
+        };
+    </script>
+</div>

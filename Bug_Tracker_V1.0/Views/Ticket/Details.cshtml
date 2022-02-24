@@ -1,0 +1,406 @@
+﻿@model Bug_Tracker_V1._0.ViewModels.TicketViewModels.TicketCreateViewModel
+@using Bug_Tracker_V1._0.BuisinessLogic.Models.Enums
+@using Bug_Tracker_V1._0.Models.Enums
+
+
+<head>
+    <link rel="stylesheet" href="~/css/TicketAbout.css">
+    <script src="~/js/TicketDetail.js"></script>
+</head>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg pb-4">
+            <div class="card shadow-sm rounded-0">
+
+                <div class="card-title panel-title align-items-center d-flex justify-content-center pt-1">
+                    <ul class="list-group list-group-horizontal-lg justify-content-center">
+                        <li class="list-group-item border-0">
+                            <h3><b>@Model.Title</b></h3>
+                        </li>
+
+
+                        <li class="list-group-item border-0">
+                            @if (Model.UserProjectRole == Role.Owner)
+                            {
+                                <button type="button" class="btn bg-purple rounded-0" data-bs-toggle="modal" data-bs-target="#newIssue">Edit</button>
+                            }
+                        </li>
+                    </ul>
+                </div>
+                <div class="modal fade" id="newIssue" tabindex="-1" role="dialog" aria-labelledby="newIssue" aria-hidden="true">
+                    <div class="modal-wrapper">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-blue">
+                                    <button type="button" class="close" aria-label="Close" data-bs-dismiss="modal" aria-hidden="true">×</button>
+                                    <h4 class="modal-title"><i class="fa fa-pencil"></i>Edit Ticket</h4>
+                                </div>
+
+                                <form asp-controller="Ticket" asp-action="EditTicket" method="post">
+                                    @Html.HiddenFor(x => Model.Ticket.Id)
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label asp-for="Title">Ticket Name</label>
+                                            <textarea id="create-type" asp-for="Title" class="form-control"></textarea>
+                                            <span asp-validation-for="Title" class="text-danger"></span>
+
+                                            <label asp-for="Description">Description</label>
+                                            <textarea id="create-type" asp-for="Description" class="form-control"></textarea>
+                                            <span asp-validation-for="Description" class="text-danger"></span>
+
+                                            <label asp-for="Ticket.Type">Type</label>
+                                            <select id="create-type" asp-for="Ticket.Type" asp-items="@Html.GetEnumSelectList<TicketType>()" class="form-control"></select>
+                                            <span asp-validation-for="Ticket.Type" class="text-danger"></span>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" class="btn bg-purple pull-right rounded-0" value="Submit" />
+                                        <button type="button" class="btn bg-test rounded-0" data-bs-dismiss="modal"><i class="fa fa-times"></i> Discard</button>
+                                        <label asp-for="TicketId" hidden>Ticket Name</label>
+                                        <input type="submit" class="btn btn-danger pull-right rounded-0" value="Delete Ticket" />
+                                    </div>
+                                </form>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+                <ul class="list-group list-group-horizontal justify-content-center">
+                    <li class="list-group-item RowStyle rounded-0 justify-content-center"><b>Project</b></li>
+                    <li class="list-group-item rounded-0 AttributeRow">
+                        @Model.Project.ProjectName
+                    </li>
+                </ul>
+
+                <ul class="list-group list-group-horizontal justify-content-center">
+                    <li class="list-group-item RowStyle rounded-0"><b>Description</b></li>
+                    <li class="list-group-item rounded-0 AttributeRow">
+                        @Model.Ticket.Description
+                    </li>
+                </ul>
+
+                <ul class="list-group list-group-horizontal justify-content-center">
+                    <li class="list-group-item RowStyle rounded-0"><b>Ticket Number</b></li>
+                    <li class="list-group-item rounded-0 AttributeRow">
+                        @Model.TicketId
+                    </li>
+                </ul>
+
+                <ul class="list-group list-group-horizontal justify-content-center">
+                    <li class="list-group-item RowStyle rounded-0"><b>Creator</b></li>
+                    <li class="list-group-item rounded-0 AttributeRow">
+                        @Model.Ticket.CreatedBy
+                    </li>
+                </ul>
+
+                <ul class="list-group list-group-horizontal justify-content-center">
+                    <li class="list-group-item RowStyle rounded-0"><b>Date Created</b></li>
+                    <li class="list-group-item rounded-0 AttributeRow">
+                        @Model.Ticket.CreatedAt
+                    </li>
+                </ul>
+
+                <ul class="list-group list-group-horizontal justify-content-center">
+
+                    <li class="list-group-item RowStyle RowStyle rounded-0"><b>Role</b></li>
+                    <li class="list-group-item AttributeRow rounded-0">
+                        @Model.UserProjectRole
+                    </li>
+
+                </ul>
+
+                <ul class="list-group list-group-horizontal justify-content-center">
+                    <li class="list-group-item RowStyle rounded-0"><b>Type</b></li>
+                    <li class="list-group-item rounded-0 AttributeRow">
+                        @Model.Ticket.Type
+                    </li>
+                </ul>
+
+
+                <form asp-controller="Ticket" asp-action="UpdateTicket" method="post">
+                    @Html.HiddenFor(x => Model.Ticket.Id)
+                    <ul class="list-group list-group-horizontal justify-content-center">
+                        <li class="list-group-item RowStyle rounded-0"><b>Priority</b></li>
+                        @* Need to create a role identity  *@
+                        @if (Model.UserProjectRole == Role.Reader || Model.UserProjectRole == Role.Submitter)
+                        {
+                            <li class="list-group-item AttributeRow rounded-0">
+                                @Model.Ticket.Priority
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item AttributeRow rounded-0">
+                                <select onchange="displayUpdateBtn()"
+                                        asp-for="@Model.Ticket.Priority"
+                                        asp-items="Html.GetEnumSelectList<Priority>()">
+                                </select>
+                            </li>
+                        }
+                    </ul>
+
+                    <ul class="list-group list-group-horizontal justify-content-center">
+                        <li class="list-group-item RowStyle RowStyle rounded-0"><b>Status</b></li>
+                        @* Need to create a role identity  *@
+                        @if (Model.UserProjectRole == Role.Reader || Model.UserProjectRole == Role.Submitter)
+                        {
+                            <li class="list-group-item AttributeRow rounded-0">
+                                @Model.Ticket.Status
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="list-group-item AttributeRow rounded-0">
+                                <select asp-for="@Model.Ticket.Status"
+                                        asp-items="Html.GetEnumSelectList<Status>()"
+                                        onchange="displayUpdateBtn()">
+                                </select>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="list-group list-group-horizontal justify-content-center">
+                        <li class="list-group-item RowStyle RowStyle rounded-0"><b>Assigned to</b></li>
+                        <li class="list-group-item AttributeRow rounded-0">
+                            @if (Model.UserProjectRole != Role.Owner)
+                            {
+                                @Model.userFullName
+                            }
+                            else
+                            {
+                                <select asp-for="AssignedToId"
+                                        asp-items="@Model.ProjectUsers"
+                                        onchange="displayUpdateBtn()">
+                                </select>
+                                <span asp-validation-for="AssignedToId" class="text-danger"></span>
+                            }
+                        </li>
+                    </ul>
+                    <br />
+                    <div style="text-align: center;">
+                        <input id="updateBtn" type="submit" class="btn btn-danger rounded-0" style="display: none;" value="Update" />
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+
+
+        <div class="col-lg pb-1">
+            <form asp-controller="Ticket" asp-action="PostComment" method="post">
+                <div class="card shadow-sm rounded-0" style="height: 515px">
+                    <div class="card-title panel-title align-items-center d-flex justify-content-center pt-2"><h3><b>Comments</b></h3></div>
+                    <div class="headings mb-auto">
+                        <div class="d-flex flex-row add-comment-section mt-4 ">
+                            @Html.HiddenFor(x => Model.Ticket.Id)
+                            <input type="text" asp-for="@Model.Comment.CommentText" class="form-control mr-4 rounded-0" placeholder="Add comment" />
+                            <span asp-validation-for="@Model.Comment.CommentText" class="text-danger"></span>
+                            <input class="btn bg-test rounded-0" type="submit" value="Comment" />
+                        </div>
+                    </div>
+
+
+                    <div class="scrollable">
+                        @if (Model.Comments.Count > 0)
+                        {
+                            for (int i = Model.Comments.Count - 1; i >= 0; i--)
+                            {
+                                <div class="card p-3">
+                                    <div class="user d-flex flex-row align-items-center">
+                                        <div class=" usercontainer">
+                                            @if (Model.Comments.ToList()[i].User.ProfilePicture != null)
+                                            {
+                                                <img class="me-2" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(Model.Comments.ToList()[i].User.ProfilePicture))">
+                                            }
+                                            else
+                                            {
+                                                <img src="https://i.stack.imgur.com/l60Hf.png" class="me-2" style="width:40px;height:40px; object-fit:cover; border-radius:30px">
+                                            }
+                                            <small class="font-weight-bold text-primary">@Model.Comments.ToList()[i].FullName</small>
+                                            <p class="font-weight-bold p-3 commentcontainer">
+                                                @Model.Comments.ToList()[i].CommentText
+                                            </p>
+                                        </div>
+                                        <div class="px-4 commentdate">@Model.Comments.ToList()[i].CreatedDateTime</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+
+                </div>
+            </form>
+            <br />
+        </div>
+    </div>
+    <div class="row justify-content-center project-card-cont">
+        <div class="col-lg-6">
+            <form>
+                @Html.HiddenFor(x => Model.Ticket.Id)
+                <div class="row overflow-auto" style="padding-top: 5%;">
+                    <div class="card shadow-sm rounded-0">
+                        <div class="card-title panel-title align-items-center d-flex justify-content-center pt-2">
+                            <h3><b>Ticket History</b></h3>
+                        </div>
+                        <div class="card-body">
+
+                            <p>
+                                <input type="text" placeholder="Search..." name="searchString" value="@ViewData["CurrentFilter"]" />
+                                <button type="submit" value="Search" class="btn bg-purple rounded-0">Search</button>
+                                <a href="@Url.ActionLink("Details","Ticket",new { id = Model.TicketId })">Clear Search</a>
+                            </p>
+
+                            <ul class="list-group list-group-horizontal">
+                                <li class="list-group-item RowStyle border-1">
+                                    <h6 class="panel-title">Property</h6>
+                                </li>
+                                <li class="list-group-item RowStyle border-1">
+                                    <h6 class="panel-title">Old Value</h6>
+                                </li>
+                                <li class="list-group-item RowStyle border-1">
+                                    <h6 class="panel-title">New Value</h6>
+                                </li>
+                                <li class="list-group-item RowStyle border-1 flex-">
+                                    <h6 class="panel-title">Date Changed</h6>
+                                </li>
+                            </ul>
+                            <div class="scrollable">
+
+                                @if (Model.TicketHistory.Count > 0)
+                                {
+                                    for (int i = 0; i < Model.TicketHistory.Count; i++)
+                                    {
+                                        <ul class="list-group list-group-horizontal">
+                                            <li class="list-group-item RowStyle border-0">
+                                                <div>@Model.TicketHistory.ToList()[i].Property</div>
+                                            </li>
+                                            <li class="list-group-item RowStyle border-0">
+                                                <div>@Model.TicketHistory.ToList()[i].OldValue</div>
+                                            </li>
+                                            <li class="list-group-item RowStyle border-0">
+                                                <div>@Model.TicketHistory.ToList()[i].NewValue</div>
+                                            </li>
+                                            <li class="list-group-item RowStyle border-0">
+                                                <div>@Model.TicketHistory.ToList()[i].DateTime</div>
+                                            </li>
+                                        </ul>
+                                    }
+                                }
+                                else
+                                {
+                                    <br />
+                                    <div style="margin-left: 5%;">
+                                        <p>There have not been any changes made to this ticket yet.</p>
+                                    </div>
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-lg-6 pt-2">
+            <br />
+            <div class="card shadow-sm rounded-0" style="height: 530px">
+                <div class="card-title panel-title align-items-center d-flex justify-content-center pt-2">
+                    <h3><b>Attachments</b></h3>
+                </div>
+                <div class="align-items-center text-center">
+                    <div class="card-body overflow-scroll">
+                        <div class="row">
+
+                            @if (Model.UserProjectRole == Role.Owner || Model.UserProjectRole == Role.Submitter || Model.UserProjectRole == Role.Developer)
+                            {
+                            <form method="post" enctype="multipart/form-data" asp-controller="Attachment" asp-action="UploadToDatabase">
+                                @Html.HiddenFor(x => Model.TicketId)
+                                <div class="form-group">
+                                    &emsp; &emsp; <input type="file" asp-for="files" multiple required />
+
+                                    <input type="text" autocomplete="off" placeholder="Enter File Description" asp-for="fileDescription" required />
+
+
+                                    <button class="btn bg-test rounded-0" type="submit">Upload</button>
+                                </div>
+
+                            </form>
+                            }
+                            <hr />
+
+                            @if (Model.Ticket.Attachments.Count == 0)
+                            {
+                                <p>No Records Found</p>
+                            }
+                            else
+                            {
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>File Type</th>
+                                            <th>Description</th>
+                                            <th>Created On</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var file in Model.Ticket.Attachments)
+                                        {
+                                            <tr>
+                                                <td>@file.Name</td>
+                                                <td>@file.FileType</td>
+                                                <td><p>@file.Description. <br /><br /><b>Uploader</b> @file.UploadedBy</p></td>
+                                                <td>@file.CreatedOn</td>
+                                                <td>
+                                                    <a type="button" class="btn-sm text-decoration-none rounded-0 btn-primary text-white" asp-controller="Attachment" asp-action="DownloadFileFromDatabase" asp-route-id="@file.Id">Download</a>
+                                                    @if (Model.UserProjectRole == Role.Owner)
+                                                    {
+                                                        <a type="button" class="btn-sm text-decoration-none rounded-0 btn-danger" asp-controller="Attachment" asp-action="DeleteFileFromDatabase" asp-route-id="@file.Id">Delete</a>
+                                                    }
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script type="text/javascript">
+    function DownloadFile(fileId) {
+        $("#hfFileId").val(fileId);
+        $("#btnDownload")[0].click();
+    };
+</script>
+
+
+
+

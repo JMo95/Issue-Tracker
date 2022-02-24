@@ -1,0 +1,49 @@
+﻿@model Bug_Tracker_V1._0.ViewModels.ProjectViewModels.DetailViewModel
+
+    <head>
+        <link rel="stylesheet" href="~/css/Projects.css">
+    </head>
+
+    <body>
+        <div class="container">
+            <h2 class="my-4"><b>@Model.Project.ProjectName</b></h2>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="my-auto">
+                    <h3>Collaborating Users</h3>
+
+                    <div class="list-group">
+
+
+                        @foreach (var collabUser in Model.Collaborators)
+                        {
+                            <button id="listItem" type="button" class="list-group-item list-group-item-action rounded-0" aria-current="true">
+                                @collabUser.FirstName @collabUser.LastName
+                            </button>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+
+            <div class="col-md-4">
+                <h3 class="my-3">Project Description</h3>
+                <p>@Model.Project.ProjectDescription</p>
+                <h3 class="my-3">Project Details</h3>
+                <ul>
+                    <li>Creation Date: @Model.Project.ProjectCreatedTime</li>
+                    <li>Team Size: @Model.Project.ProjectTeamSize</li>
+                    <li>Open Tickets: @Model.OpenTicketCount</li>
+                    <li>In Progress Tickets: @Model.InProgressTicketCount</li>
+                    <li>Closed Tickets: @Model.ClosedTicketCount</li>
+                </ul>
+                <a href="@Url.Action("Index","Ticket",new { id = Model.Project.ProjectId.ToString() })" class="btn bg-purple rounded-0">Tickets</a>
+                <a href="@Url.Action("Collaborate","Project",new { id = Model.Project.ProjectId.ToString() })" class="btn bg-test rounded-0">Manage Users</a>
+
+            </div>
+            </div>
+
+</body>

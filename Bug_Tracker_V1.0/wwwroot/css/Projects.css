@@ -1,0 +1,63 @@
+﻿table.table-bordered > thead > tr > th {
+    border: 1px solid;
+    color: #000000;
+}
+
+.btnOpacity {
+    opacity: .7;
+}
+
+.btn1-card {
+    background-color: #F5D24E;
+    color: #000;
+}
+.btn2-card {
+    background-color: #F5D14E;
+    color: #000;
+}
+.btn3-card {
+    background-color: #F5D04E;
+    color: #000;
+}
+
+.bg-purple {
+    background-color: #4650dd;
+    color: white;
+}
+.bg-test {
+    background-color: #ffe059;
+    color: #000;
+    font-weight: 700;
+}
+.bg-success {
+    background-color: #fff;
+}
+
+
+.bg-li {
+    background: #d9d9d9;
+}
+
+.bg-c-yellow {
+    background: linear-gradient(45deg,#FFB64D,#ffcb80);
+}
+
+.bg-c-pink {
+    background: linear-gradient(45deg,#FF5370,#ff869a);
+}
+
+
+.card {
+    border-radius: 5px;
+    -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+    box-shadow: 1px 1px 1px 1px rgba(4,26,55,0.16);
+    border: none;
+    margin-bottom: 30px;
+    margin-left: 3px;
+    margin-right: 3px;
+    padding-top: 1%;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+}
+

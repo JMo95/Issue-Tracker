@@ -1,0 +1,57 @@
+﻿@model Bug_Tracker_V1._0.WebApi.ViewModels.AppUserViewModels.NotificationsViewModel
+
+<span class="notification ms-lg-auto pe-3 position-relative">
+    <a href="#" class="fa fa-bell pe-0 text-decoration-none text-black" data-bs-toggle="dropdown" aria-expanded="false">
+    </a>
+    <ul class="dropdown-menu dropdown-menu-white dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser1"
+        style="width: 15rem;">
+        <div class="text-center"><b>Collaboration Invites</b></div>
+        
+        @foreach (var notification in Model.UserNotifications)
+        {
+            @if (!notification.isAcknowledged)
+            {
+                Model.NotificationCount++;
+                <li>
+                    <ul class="list-group">
+                        <li class="list-group-item pt-2" style=" white-space: normal; float: left; width: 100%; height: auto; word-wrap: break-word;">
+                            <div>@notification.NofiticationMessage</div>
+                            <br />
+                        </li>
+                        <li class="list-group-item">
+                            <form asp-action="AcceptNotification" asp-controller="Project" asp-route-id="@notification.Id" method="post">
+                                <input type="submit" value="Accept" class="btn btn-sm btn-success float-start position-relative" />
+                            </form>
+
+                            <form asp-action="DeclineNotification" asp-controller="Project" asp-route-id="@notification.Id" method="post">
+                                <input type="submit" value="Decline" class="btn btn-sm btn-danger float-end position-relative" />
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+            }
+        }
+    </ul>
+    @if (Model.NotificationCount > 0)
+    {
+        <sup><span class="badge bg-danger rounded-pill">@Model.NotificationCount</span></sup>
+    }
+</span>
+
+<script>
+
+    // Use find() function to extract the badge
+    // count from '#group' container.
+    $(document).ready(function () {
+        $(".notification").click(function () {
+            var val = parseInt($('#group').find('.badge').text());
+
+            // Check for the button clicked
+            if ($(this).hasClass('btn-danger')) {
+                $('#group').find('.badge').text(val - 1);
+            } else if ($(this).hasClass('btn-success')) {
+                $('#group').find('.badge').text(val + 1);
+            }
+        });
+    });
+</script>

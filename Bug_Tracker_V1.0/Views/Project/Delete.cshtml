@@ -1,0 +1,10 @@
+﻿@model Bug_Tracker_V1._0.ViewModels.ProjectViewModels.DetailViewModel
+
+<h4>Delete @Model.Project.ProjectName</h4>
+
+
+<form method="post" asp-action="ConfirmDelete">
+    @Html.HiddenFor(x => x.Project.ProjectId)
+    <input class="btn btn-primary" type="submit" value="Delete Project"/>
+</form>
+

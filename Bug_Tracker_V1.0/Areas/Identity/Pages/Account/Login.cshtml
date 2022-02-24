@@ -1,0 +1,74 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+    Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
+}
+
+
+    <link rel="stylesheet" type="text/css" href="~/css/login.css" />
+
+
+
+<div class="col-md-10 offset-md-1">
+    <section>
+        @*User Login*@
+        <form id="account" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" class="form-control" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" class="form-control" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label asp-for="Input.RememberMe">
+                        <input asp-for="Input.RememberMe" />
+                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <button type="submit" class="btn bg-purple rounded-0">Log in</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p>
+                    <a href="" id="forgot-password">Forgot your password?</a>
+                </p>
+            </div>
+
+        </form>
+        @*Demo Login*@
+    <form id="account" method="post">
+            <div class="form-group">
+                <input asp-for="Input.Email" hidden="hidden" value="demo@example.com" />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input asp-for="Input.Password" hidden="hidden" value="Password123!" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+
+        <p class="mb-1">Don't want to make an account? Sign in to a demo account!</p>
+            <div class="form-group">
+                <button type="submit" class="btn bg-yellow rounded-0">Demo</button>
+            </div>
+    </form>
+    </section>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

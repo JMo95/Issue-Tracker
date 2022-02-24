@@ -1,0 +1,25 @@
+﻿@model Bug_Tracker_V1._0.WebApi.ViewModels.AppUserViewModels.AppUserViewModel
+
+<div class=" button">
+    <a href="#" class="d-flex align-items-center text-black text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        @if (Model.ProfilePicture != null)
+        {
+            <img class="me-2" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(Model.ProfilePicture))">
+        }
+        else
+        {
+            <img src="https://i.stack.imgur.com/l60Hf.png" class="me-2" style="width:40px;height:40px; object-fit:cover; border-radius:30px">
+        }
+        <strong class="user" style="font-size: 2vw;"> @Model.User.FirstName @Model.User.LastName</strong>
+    </a>
+    <ul class=" dropdown-menu dropdown-menu-end dropdown-menu-white text-small shadow me-4" aria-labelledby="dropdownUser1">
+        <li><a class="dropdown-item" href="#">Account Settings</a></li>
+        <li><a class="dropdown-item" href="/Identity/Account/Manage">Profile</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li>
+            <form class="" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                <button type="submit" class="nav-link dropdown-item">Logout</button>
+            </form>
+        </li>
+    </ul>
+</div>
