@@ -12,7 +12,7 @@ namespace Bug_Tracker_V1._0.Data
     public class ApplicationDbContext : IdentityDbContext<AuthenticationUser, AuthenticationRole, int>
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    => optionsBuilder.UseNpgsql("Host=localhost;Database=Tacker_core;Username=postgres;Password=Boater3569!");
+    => optionsBuilder.UseNpgsql("Server=ec2-3-222-183-44.compute-1.amazonaws.com;Port=5432;Database=d4vm6eap8fq5dd;User Id=pxnvtnlulcpolr;Password=31551e96dce9ae0d56bb865ce5afa5d055d29bb812edb618f5af151ac4656972;Sslmode=Require;Trust Server Certificate=true");
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

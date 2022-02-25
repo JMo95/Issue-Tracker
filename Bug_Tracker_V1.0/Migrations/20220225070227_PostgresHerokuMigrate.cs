@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Bug_Tracker_V1._0.Migrations
 {
-    public partial class PostgresqlHeroku : Migration
+    public partial class PostgresHerokuMigrate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

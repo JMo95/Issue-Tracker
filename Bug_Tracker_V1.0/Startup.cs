@@ -41,8 +41,8 @@ namespace Bug_Tracker_V1._0
 
             services.AddDbContext<ApplicationDbContext>(options =>
                  options.UseNpgsql(
-                 Configuration.GetConnectionString("DefaultConnection"))
-            );
+                 Configuration.GetConnectionString("DefaultConnection")));
+           
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -99,6 +99,7 @@ namespace Bug_Tracker_V1._0
             app.UseAuthentication();
             app.UseAuthorization();
 
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             app.UseEndpoints(endpoints =>
             {

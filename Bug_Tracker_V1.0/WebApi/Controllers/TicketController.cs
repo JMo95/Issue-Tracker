@@ -268,7 +268,7 @@ namespace Bug_Tracker_V1._0.Controllers
                 await _ticketService.Update(ticket);
             }
 
-            if (vm.AssignedToId != oldAssignedTo)
+            if (vm.AssignedToId != oldAssignedTo && vm.AssignedToId != 0)
             {
 
                 var ticketHistory = new TicketHistory
