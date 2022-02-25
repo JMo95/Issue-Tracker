@@ -11,6 +11,9 @@ namespace Bug_Tracker_V1._0.Data
 {
     public class ApplicationDbContext : IdentityDbContext<AuthenticationUser, AuthenticationRole, int>
     {
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder.UseNpgsql("Host=localhost;Database=Tacker_core;Username=postgres;Password=Boater3569!");
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
 

@@ -17,10 +17,10 @@ namespace Bug_Tracker_V1._0.Areas.Identity.Data
         // This adds it to the asp.net usernames table
 
 
-        [Column(TypeName = "nvarchar(100)")]
+        [Column(TypeName = "varchar(100)")]
         public string FirstName { get; set; }
 
-        [Column(TypeName = "nvarchar(100)")]
+        [Column(TypeName = "varchar(100)")]
         public string LastName { get; set; }
 
         public byte[] ProfilePicture { get; set; }

@@ -17,7 +17,7 @@ namespace Bug_Tracker_V1._0.Areas.Identity
         {
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(
+                    options.UseNpgsql(
                         context.Configuration.GetConnectionString("DefaultConnection")));
     
 

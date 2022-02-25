@@ -40,7 +40,7 @@ namespace Bug_Tracker_V1._0
         {
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                 options.UseSqlServer(
+                 options.UseNpgsql(
                  Configuration.GetConnectionString("DefaultConnection"))
             );
 
@@ -72,6 +72,8 @@ namespace Bug_Tracker_V1._0
 
 
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+
 
         }
 
