@@ -37,7 +37,10 @@ namespace Bug_Tracker_V1._0.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            return View(new IndexViewModel { User = await _projectFacade.GetUser(User) });
+            return View(new IndexViewModel { 
+                
+                User = await _projectFacade.GetUser(User) 
+            });
         }
 
         public IActionResult Create()

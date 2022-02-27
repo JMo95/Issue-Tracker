@@ -3,6 +3,8 @@
 }
 
 @model Bug_Tracker_V1._0.ViewModels.ProjectViewModels.IndexViewModel
+@using Bug_Tracker_V1._0.BuisinessLogic.Models.Enums
+@using Bug_Tracker_V1._0.Models.Enums
 
 @{ var action = ViewContext.RouteData.Values["action"].ToString();
     var controller = ViewContext.RouteData.Values["controller"].ToString();
@@ -69,21 +71,25 @@
                                                asp-controller="Project"
                                                asp-action="Details"
                                                asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Details</a>
-                                            <a class="btn btn-sm bg-test rounded-0 project-edit-btn m-1"
-                                               asp-controller="Project"
-                                               asp-action="Edit"
-                                               asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Edit</a>
-                                        </div>
+
+                                            @if (Model.User.UserProjects.ToList()[i].ProjectRole == Role.Owner)
+                                            {
+                                                <a class="btn btn-sm bg-test rounded-0 project-edit-btn m-1"
+                                                           asp-controller="Project"
+                                                           asp-action="Edit"
+                                                           asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Edit</a>
+                                            }
+                            </div>
                                     </div>
                                 }
                                 else if (Model.User.UserProjects.ToList()[i].Project.ProjectTeamSize == 1)
                                 {
                                     <div class="card-body">
-                                        <p class="card-subtitle">
+                                        <div class="card-subtitle m-auto">
                                             <span class="badge rounded-0 bg-danger"> @Model.User.UserProjects.ToList()[i].ProjectRole</span>
                                             <span class="badge rounded-0 bg-primary"> @Model.User.UserProjects.ToList()[i].Project.Tickets.Count Tickets</span>
                                             <span class="badge rounded-0 bg-success"> @Model.User.UserProjects.ToList()[i].Project.ProjectTeamSize Contributor</span>
-                                        </p>
+                                        </div>
                                         <br />
                                         <p class="card-text m-auto">@Model.User.UserProjects.ToList()[i].Project.ProjectDescription</p>
                                         <hr />
@@ -99,10 +105,13 @@
                                                asp-controller="Project"
                                                asp-action="Details"
                                                asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Details</a>
-                                            <a class="btn btn-sm bg-test rounded-0 project-edit-btn m-1"
-                                               asp-controller="Project"
-                                               asp-action="Edit"
-                                               asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Edit</a>
+                                               @if (Model.User.UserProjects.ToList()[i].ProjectRole == Role.Owner)
+                                               {
+                                                <a class="btn btn-sm bg-test rounded-0 project-edit-btn m-1"
+                                                   asp-controller="Project"
+                                                   asp-action="Edit"
+                                                   asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Edit</a>
+                                               }
                                         </div>
                                     </div>
                                 }
@@ -129,11 +138,14 @@
                                                asp-controller="Project"
                                                asp-action="Details"
                                                asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Details</a>
-                                            <a class="btn btn-sm bg-test rounded-0 project-edit-btn m-1"
-                                               asp-controller="Project"
-                                               asp-action="Edit"
-                                               asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Edit</a>
-                                        </div>
+                                            @if (Model.User.UserProjects.ToList()[i].ProjectRole == Role.Owner)
+                                            {
+                                                <a class="btn btn-sm bg-test rounded-0 project-edit-btn m-1"
+                                                           asp-controller="Project"
+                                                           asp-action="Edit"
+                                                           asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Edit</a>
+                                            }
+                            </div>
                                     </div>
                                 }
                                 else
@@ -160,11 +172,14 @@
                                                asp-controller="Project"
                                                asp-action="Details"
                                                asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Details</a>
-                                            <a class="btn btn-sm bg-test rounded-0 project-edit-btn m-1"
-                                               asp-controller="Project"
-                                               asp-action="Edit"
-                                               asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Edit</a>
-                                        </div>
+                                            @if (Model.User.UserProjects.ToList()[i].ProjectRole == Role.Owner)
+                                                {
+                                                    <a class="btn btn-sm bg-test rounded-0 project-edit-btn m-1"
+                                                               asp-controller="Project"
+                                                               asp-action="Edit"
+                                                               asp-route-id="@Model.User.UserProjects.ToList()[i].Project.ProjectId">Edit</a>
+                                                }
+                            </div>
                                     </div>
                                 }
                             </div>

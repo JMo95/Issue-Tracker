@@ -27,5 +27,6 @@ namespace Bug_Tracker_V1._0.ViewModels.ProjectViewModels
 
         [Url]
         public string NewProjectRepoUrl { get; set; }   
+
     }
 }
