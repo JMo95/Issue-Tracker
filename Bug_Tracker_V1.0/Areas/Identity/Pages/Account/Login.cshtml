@@ -1,6 +1,7 @@
 ﻿@page
 @model LoginModel
 
+
 @{
     ViewData["Title"] = "Log in";
     Layout = "~/Areas/Identity/Pages/_AuthLayout.cshtml";
@@ -52,11 +53,11 @@
         @*Demo Login*@
     <form id="account" method="post">
             <div class="form-group">
-                <input asp-for="Input.Email" hidden="hidden" value="demo@example.com" />
+                <input asp-for="Input.Email" hidden="hidden" value="@Model.DemoEmail" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="Input.Password" hidden="hidden" value="Password123!" />
+                <input asp-for="Input.Password" hidden="hidden" value="@Model.DemoPw" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
 

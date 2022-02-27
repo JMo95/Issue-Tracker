@@ -34,7 +34,6 @@ namespace Bug_Tracker_V1._0.BuisinessLogic.Models
         public int AssignedToId { get; set; }
         public string AssignedTo { get; set;  }
         public int ProjectId { get; set; }
-        public virtual Project Project { get; set; }
         public virtual ICollection<Comment> Comments {get; set;}
         public int CommentCount { get; set; }
         public virtual ICollection<TicketHistory> TicketHistory { get; set; }

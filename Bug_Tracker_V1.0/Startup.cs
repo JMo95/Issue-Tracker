@@ -19,6 +19,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,9 +40,10 @@ namespace Bug_Tracker_V1._0
         public void ConfigureServices(IServiceCollection services)
         {
 
+
             services.AddDbContext<ApplicationDbContext>(options =>
                  options.UseNpgsql(
-                 Configuration.GetConnectionString("DefaultConnection")));
+                 Configuration.GetConnectionString("TrackerCore")));
            
 
             services.AddDatabaseDeveloperPageExceptionFilter();

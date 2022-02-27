@@ -7,16 +7,17 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/DashboardIndex.css">
-    @*Google roboto font*@
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    @* Font awesome CDN icons*@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Butterfly+Kids&family=Didact+Gothic&family=Fira+Mono:wght@500&family=Indie+Flower&family=Roboto+Mono&family=Shizuru&family=Source+Sans+Pro&family=Ubuntu+Mono&family=Vujahday+Script&family=Yantramanav:wght@400;500&family=Yuji+Hentaigana+Akari&display=swap" rel="stylesheet">
+@* Font awesome CDN icons*@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
     @*Header code added for sidebar*@
     <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sidebars/">
     <!-- Custom styles for this template -->
+
+    <link rel="icon" href="~/lib/favicon2.png" />
 
     <style>
         .bd-placeholder-img {
@@ -115,17 +116,22 @@
         @*NAVBAR TOP*@
 
 
-        <nav class="navbar navbar-expand navbar-toggleable-sm navbar-white bg-white box-shadow shadow">
-
+        <nav class="navbar navbar-expand navbar-toggleable navbar-white bg-white box-shadow shadow"
+        style="max-height: 12vh">
+            <div class="container-fluid">
             <div class="ps-2 align-middle">
-                <button class="btn bg-yellow rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
+                <button class="btn bg-yellow rounded-0" style="z-index: 10; position: relative;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSidebar" aria-expanded="false" aria-controls="collapseExample">
                 <i class="fas fa-bars"></i>
             </button>
             </div>
 
-            <a href="/Project" class="navbar-brand align-middle" style="display: block; position: absolute; left: 8%;">
-                <img src="/img/NavLogo.png" alt="" class="img-fluid" style="width: 65%; height: 65%;">
+            <a href="/" class="navbar-brand align-middle logo-container">
+                <div></div>
+                <img srcset="/img/NavLogo.png" alt="" class="logo-img-container">
             </a>
+            </div>
+
+
 
             <div class="container">
 
@@ -134,7 +140,7 @@
                     @await Component.InvokeAsync("Notification")
                 </div>
 
-                <div class="navbar-brand align-middle" style="display: block; position: absolute; left: 73%;">
+                <div class="navbar-brand align-middle profile-container">
                     @*Profile Picture*@
                     @await Component.InvokeAsync("ProfilePicture")
                 </div>
@@ -142,7 +148,7 @@
                     <br />
                     <br />
                 </div>
-</nav>
+        </nav>
 
 
 

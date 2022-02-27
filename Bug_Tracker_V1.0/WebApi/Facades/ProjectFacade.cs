@@ -186,5 +186,48 @@ namespace Bug_Tracker_V1._0.Facades
             return count;
         }
 
+        public async Task RemoveProjectFKs(int id)
+        {
+            var project = await _projectService.FindOne(id);
+
+            foreach(var ticket in project.Tickets)
+            {
+                await RemoveTicketFKs(ticket.Id);
+                project.Tickets.Remove(ticket);
+            }
+
+            foreach (var userProject in project.UserProjects)
+            {
+                project.UserProjects.Remove(userProject);
+            }
+
+            await _projectService.Update(project);
+        }
+
+        public async Task RemoveTicketFKs(int id)
+        {
+            var ticket = await _ticketService.FindOne(id);
+
+            foreach (var attachment in ticket.Attachments)
+            {
+                ticket.Attachments.Remove(attachment);
+            }
+
+            foreach (var attachment in ticket.Attachments)
+            {
+                ticket.Attachments.Remove(attachment);
+            }
+            foreach (var comment in ticket.Comments)
+            {
+                ticket.Comments.Remove(comment);
+            }
+            foreach (var ticketHistory in ticket.TicketHistory)
+            {
+                ticket.TicketHistory.Remove(ticketHistory);
+            }
+
+            await _ticketService.Update(ticket);
+        }
+
     }
 }

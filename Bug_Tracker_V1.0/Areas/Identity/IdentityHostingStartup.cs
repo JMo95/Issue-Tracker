@@ -18,7 +18,7 @@ namespace Bug_Tracker_V1._0.Areas.Identity
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseNpgsql(
-                        context.Configuration.GetConnectionString("DefaultConnection")));
+                        context.Configuration.GetConnectionString("TrackerCore")));
     
 
                 services.AddIdentity<AuthenticationUser, AuthenticationRole>(options =>

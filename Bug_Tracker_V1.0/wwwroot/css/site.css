@@ -1,6 +1,11 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+* {
+    font-family: 'Source Sans Pro', monospace;
+    font-style: normal;
+}
+
 .bg-purple {
     background-color: #4650dd;
     color: white;
@@ -21,21 +26,68 @@ for details on configuring this project to bundle and minify static web assets. 
     top: 150px;
     left: 0;
 }
-@media only screen and (max-width: 950px) {
-    .notification-container {
-        display: block;
-        position: absolute;
-        left: 61%;
+
+@media only screen and (max-width: 768px) {
+    .logo-img-container {
+        width: 130px;
     }
 }
 
-@media only screen and (min-width: 950px) {
-    .notification-container {
+@media only screen and (min-width: 768px) {
+    .logo-img-container {
+        width: 130px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .logo-container {
+        display: block;
+        position: absolute;
+        left: 15%;
+        padding-left: 0%;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .logo-container {
+        display: block;
+        position: absolute;
+        left: 8%;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .profile-container {
         display: block;
         position: absolute;
         left: 68%;
     }
+    }
+@media only screen and (min-width: 768px) {
+    .profile-container {
+        display: block;
+        position: absolute;
+        left: 85%;
+    }
 }
+
+
+    @media only screen and (max-width: 768px) {
+        .notification-container {
+            display: block;
+            position: absolute;
+            left: 57%;
+        }
+    }
+
+    @media only screen and (min-width: 768px) {
+        .notification-container {
+            display: block;
+            position: absolute;
+            left: 80%;
+        }
+    }
 
     a.navbar-brand {
         white-space: normal;
@@ -132,12 +184,11 @@ for details on configuring this project to bundle and minify static web assets. 
         height: 100%;
     }
 
-    body {
-        /* Margin bottom by footer height */
-        font-family: "Roboto", sans-serif;
-        font-size: 1rem;
-        height: 100%;
-    }
+body {
+    /* Margin bottom by footer height */
+    font-size: 1rem;
+    height: 100%;
+}
 
     .footer {
         position: absolute;

@@ -60,9 +60,13 @@
                                         <input type="submit" class="btn bg-purple pull-right rounded-0" value="Submit" />
                                         <button type="button" class="btn bg-test rounded-0" data-bs-dismiss="modal"><i class="fa fa-times"></i> Discard</button>
                                         <label asp-for="TicketId" hidden>Ticket Name</label>
-                                        <input type="submit" class="btn btn-danger pull-right rounded-0" value="Delete Ticket" />
-                                    </div>
+                                    
                                 </form>
+                                     <form asp-controller="Ticket" asp-action="Delete" method="post">
+                                            @Html.HiddenFor(x => Model.Ticket.Id)
+                                            <input type="submit" class="btn btn-danger rounded-0 position-end" value="Delete Ticket" />
+                                     </form>
+                                     </div>
 
 
                             </div>

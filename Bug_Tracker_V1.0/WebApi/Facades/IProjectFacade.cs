@@ -39,6 +39,8 @@ namespace Bug_Tracker_V1._0.Facades
         int GetTeamSize(IEnumerable<AuthenticationUser> collabUsers);
         Task<IEnumerable<Ticket>> GetUserTickets(AuthenticationUser User);
         Task<int> GetUserTicketCountByStatus(AuthenticationUser User, Status status);
+        Task RemoveProjectFKs(int id);
+        Task RemoveTicketFKs(int id);
 
     }
 }

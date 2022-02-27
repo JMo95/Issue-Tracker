@@ -149,6 +149,7 @@ namespace Bug_Tracker_V1._0.Controllers
             var UserProjectRole = _projectFacade.GetUserProjectRole(userProjects, ticket.ProjectId);
             var collaborators = await _userProjectService.GetUserCollabsByProjectId(ticket.ProjectId);
             var ticketHistory = ticket.TicketHistory;
+            var project = await _projectFacade.FindProjectById(ticket.ProjectId);
 
 
             if (!String.IsNullOrEmpty(searchString))
@@ -168,7 +169,7 @@ namespace Bug_Tracker_V1._0.Controllers
                 Title = ticket.Title,
                 Description = ticket.Description,
                 ProjectId = ticket.ProjectId,
-                Project = ticket.Project,
+                Project = project,
                 AssignedToId = ticket.AssignedToId,
                 Ticket = ticket,
                 TicketId = ticket.Id,
@@ -240,7 +241,7 @@ namespace Bug_Tracker_V1._0.Controllers
                 // Add to ticket history
                 var ticketHistory = new TicketHistory
                 {
-                    ProjectId = ticket.Project.ProjectId,
+                    ProjectId = ticket.ProjectId,
                     TicketId = ticket.Id,
                     OldValue = oldPriority.ToString(),
                     NewValue = ticket.Priority.ToString(),
@@ -256,7 +257,7 @@ namespace Bug_Tracker_V1._0.Controllers
             {
                 var ticketHistory = new TicketHistory
                 {
-                    ProjectId = ticket.Project.ProjectId,
+                    ProjectId = ticket.ProjectId,
                     TicketId = ticket.Id,
                     OldValue = oldStatus.ToString(),
                     NewValue = ticket.Status.ToString(),
@@ -273,7 +274,7 @@ namespace Bug_Tracker_V1._0.Controllers
 
                 var ticketHistory = new TicketHistory
                 {
-                    ProjectId = ticket.Project.ProjectId,
+                    ProjectId = ticket.ProjectId,
                     TicketId = ticket.Id,
                     OldValue = oldAssignedUser.FirstName + " " + oldAssignedUser.LastName,
                     NewValue = newAssignedUser.FirstName + " " + newAssignedUser.LastName,
@@ -309,8 +310,9 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(TicketCreateViewModel vm)
         {
-            var ticket = await _ticketService.FindOne(vm.TicketId);
-            await _ticketService.Delete(vm.TicketId);
+            var ticket = await _ticketService.FindOne(vm.Ticket.Id);
+            await _projectFacade.RemoveTicketFKs(ticket.Id);
+            await _ticketService.Delete(ticket.Id);
             return RedirectToAction("Index", "Ticket", new { id = ticket.ProjectId });
         }
 

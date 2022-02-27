@@ -30,6 +30,9 @@ namespace Bug_Tracker_V1._0.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
         }
+        public string DemoEmail = "demo@example.com";
+
+        public string DemoPw = "NewPassword123!@";
 
         [BindProperty]
         public InputModel Input { get; set; }

@@ -251,6 +251,7 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PostDelete(int id)
         {
+            await _projectFacade.RemoveProjectFKs(id);
             await _projectService.Delete(id);
 
             return RedirectToAction("Index", "Project");

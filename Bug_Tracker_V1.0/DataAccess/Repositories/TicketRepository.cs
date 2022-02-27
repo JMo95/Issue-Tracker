@@ -38,8 +38,7 @@ namespace BugTracker.Infrastructure.Repositories
 
         public async Task<Ticket> FindOne(int id)
         {
-            return await _context.Tickets.Include(x => x.Project)
-                                         .Include(x => x.Comments)
+            return await _context.Tickets.Include(x => x.Comments)
                                          .Include(x => x.TicketHistory)
                                          .Include(x => x.Attachments)
                                          .FirstOrDefaultAsync(x => x.Id == id);
@@ -47,8 +46,7 @@ namespace BugTracker.Infrastructure.Repositories
 
         public async Task<IEnumerable<Ticket>> GetAll()
         {
-            return await _context.Tickets.Include(x => x.Project)
-                                         .Include( x=> x.Comments)
+            return await _context.Tickets.Include( x=> x.Comments)
                                          .ToListAsync();
         }
 
