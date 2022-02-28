@@ -18,7 +18,9 @@
 .padding {
     padding: 10px;
 }
-
+.header-text {
+    color: #000;
+}
 /* GRID */
 .col {
     padding: 10px 20px;
