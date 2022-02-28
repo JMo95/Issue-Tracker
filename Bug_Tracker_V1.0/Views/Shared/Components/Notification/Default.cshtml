@@ -1,12 +1,12 @@
 ﻿@model Bug_Tracker_V1._0.WebApi.ViewModels.AppUserViewModels.NotificationsViewModel
 
-<span class="notification ms-lg-auto pe-3 position-relative">
+<div class="notification ms-lg-auto pe-3 position-relative">
     <a href="#" class="fa fa-bell pe-0 text-decoration-none text-black" data-bs-toggle="dropdown" aria-expanded="false">
     </a>
     <ul class="dropdown-menu dropdown-menu-white dropdown-menu-end text-small shadow" aria-labelledby="dropdownUser1"
         style="width: 15rem;">
         <div class="text-center"><b>Collaboration Invites</b></div>
-        
+        <div style="overflow-y:scroll">
         @foreach (var notification in Model.UserNotifications)
         {
             @if (!notification.isAcknowledged)
@@ -31,12 +31,13 @@
                 </li>
             }
         }
+        </div>
     </ul>
     @if (Model.NotificationCount > 0)
     {
         <sup><span class="badge bg-danger rounded-pill">@Model.NotificationCount</span></sup>
     }
-</span>
+</div>
 
 <script>
 
