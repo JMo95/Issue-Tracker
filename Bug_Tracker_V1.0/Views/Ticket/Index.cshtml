@@ -18,10 +18,11 @@
 
 
                 <!-- BEGIN TICKET -->
-                <div class="col-md-9">
+                <div class="col-sm-2"></div>
+                <div class="col-lg-8">
                     <div class="grid support-content">
                         <div class="grid-body">
-                            <h2>Tickets for <b>@Model.Project.ProjectName</b></h2>
+                            <h2 class="font-black">Tickets for <b>@Model.Project.ProjectName</b></h2>
                             <p>Click on a ticket to view its details.</p>
                             <hr>
 
@@ -75,24 +76,29 @@
                                                         <span asp-validation-for="TicketCreateVm.Title" class="text-danger"></span>
                                                     </div>
                                                     <div class="form-group">
+                                                        <div class="flex-lg-nowrap">
                                                         <label asp-for="TicketCreateVm.Type">Type:</label>
                                                         <select id="create-type" asp-for="TicketCreateVm.Type" asp-items="@Html.GetEnumSelectList<TicketType>()" class="form-control"></select>
                                                         <span asp-validation-for="TicketCreateVm.Type" class="text-danger"></span>
-
+                                                        </div>
+                                                        <div class="flex-lg-nowrap">
                                                         <label asp-for="TicketCreateVm.Priority">Priority:</label>
                                                         <select id="create-type" asp-for="TicketCreateVm.Priority" asp-items="@Html.GetEnumSelectList<Priority>()" class="form-control"></select>
                                                         <span asp-validation-for="TicketCreateVm.Priority" class="text-danger"></span>
-
+                                                        </div>
+                                                        <div class="flex-lg-nowrap">
                                                         <label asp-for="TicketCreateVm.Status">Status:</label>
                                                         <select id="create-type" asp-for="TicketCreateVm.Status" asp-items="@Html.GetEnumSelectList<Status>()" class="form-control"></select>
                                                         <span asp-validation-for="TicketCreateVm.Status" class="text-danger"></span>
-
+                                                        </div>
                                                         <div class="col">
+                                                        <div class="flex-lg-nowrap">
                                                             <div class="form-group">
                                                                 <label asp-for="TicketCreateVm.AssignedToId">Assign To:</label>
                                                                 <select id="create-assign" asp-for="TicketCreateVm.AssignedToId" asp-items="@Model.TicketCreateVm.ProjectUsers" class="form-control"></select>
                                                                 <span asp-validation-for="TicketCreateVm.AssignedToId" class="text-danger"></span>
                                                             </div>
+                                                        </div>
                                                         </div>
                                                     </div>
 
@@ -135,14 +141,24 @@
                                                     <div class="media-body">
                                                         <h6 class="pb-2"><b>@ticket.Title</b></h6><span class="number pull-right">#@ticket.Id</span>
                                                         <p class="m-0 pb-2">
+                                                            <div class="row">
+                                                            <div class="col-sm-4">
                                                             <span class="label label-danger">Status: <span class="badge bg-success rounded-0">@ticket.Status</span></span>
-                                                            &emsp;
+                                                            </div>
+                                                         
+                                                            <div class="col-sm-4">
                                                             <span class="label label-danger">Priority: <span class="badge bg-danger rounded-0">@ticket.Priority</span></span>
-                                                            &emsp;
+                                                            </div>
+                                                        
+                                                            <div class="col-sm-4">
                                                             <span class="label label-danger">Type: <span class="badge bg-primary rounded-0">@ticket.Type</span></span>
+                                                            </div>
+                                                            </div>
                                                         </p>
                                                         <p class="info">
+                                                            <div class="flex-lg-nowrap">
                                                             Assigned To @ticket.AssignedTo &emsp; <i class="fa fa-comments"></i> @ticket.CommentCount Comments <a href="#"></a>
+                                                            </div>
                                                         </p>
                                                     </div>
                                                 </div>

@@ -1,4 +1,19 @@
-﻿
+﻿#parent {
+    width: 300px;
+    height: 90px;
+    background-color: #666;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#childWrapper {
+    list-style: none;
+    width: 450px;
+    height: 80px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
 
 .padding {
     padding: 10px;
