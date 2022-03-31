@@ -9,7 +9,7 @@ namespace Bug_Tracker_V1._0.BuisinessLogic.Models
 {
     public class Project
     {
-
+        //Changed Display Names
         [DisplayName("Project Id")]
         public int ProjectId { get; set; }
         [DisplayName("Project Name")]
