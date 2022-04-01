@@ -18,7 +18,7 @@ namespace Bug_Tracker_V1._0
         {
             CreateHostBuilder(args).Build().Run();
         }
-
+        // Adding this comment to rebuild code on heroku. This can be deleted after.
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
