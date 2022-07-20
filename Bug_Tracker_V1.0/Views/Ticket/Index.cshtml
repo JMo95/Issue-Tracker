@@ -48,6 +48,13 @@
                                 </ul>
                             </div>
 
+                            <form>
+                               <div>
+                                <input type="text" placeholder="Search..." name="searchString" value="@ViewData["CurrentFilter"]" />
+                                <button type="submit" value="Search" class="btn bg-yellow rounded-0">Search</button>
+                                <a href="@Url.ActionLink("Index","Ticket",new { id = Model.Project.ProjectId })">Clear Search</a>
+                               </div>
+                           </form>
 
                             <!-- BEGIN NEW TICKET -->
                             @if (Model.UserProjectRole == Role.Submitter || Model.UserProjectRole == Role.Owner)

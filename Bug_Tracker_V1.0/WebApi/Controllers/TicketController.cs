@@ -46,7 +46,7 @@ namespace Bug_Tracker_V1._0.Controllers
         }
 
 
-        public async Task<IActionResult> Index(int id, string? sortOrder)
+        public async Task<IActionResult> Index(int id, string? sortOrder, string? searchString)
         {
             ViewData["DateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Date_Asc" : "";
 
@@ -56,8 +56,22 @@ namespace Bug_Tracker_V1._0.Controllers
             ICollection<Ticket> sortedTickets = project.Tickets;
 
             if (project == null) throw new KeyNotFoundException("Project could not be found in the database with the given ID");
-            
-            switch(sortOrder)
+
+            ViewData["CurrentFilter"] = searchString;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                searchString = searchString.ToLower();
+                sortedTickets = sortedTickets.Where(s => s.Type.ToString().ToLower().Contains(searchString)
+                                       || s.Id.ToString().Contains(searchString)
+                                       || s.Priority.ToString().ToLower().Contains(searchString)
+                                       || s.Type.ToString().ToLower().Contains(searchString)
+                                       || s.Title.ToLower().Contains(searchString)
+                                       || s.AssignedTo.ToLower().Contains(searchString)
+                                       || s.Status.ToString().ToLower().Contains(searchString)).ToList();
+            }
+
+            switch (sortOrder)
             {
                 case "Date_Asc":
                     sortedTickets = sortedTickets.OrderBy(x => x.CreatedAt).ToList();
@@ -141,16 +155,17 @@ namespace Bug_Tracker_V1._0.Controllers
 
         public async Task<IActionResult> Details(int id, string? searchString)
         {
-            ViewData["CurrentFilter"] = searchString;
 
             var ticket = await _ticketService.FindOne(id);
             var user = await _projectFacade.GetUser(User);
             var userProjects = await _projectFacade.GetUserProjects(user);
-            var UserProjectRole = _projectFacade.GetUserProjectRole(userProjects, ticket.ProjectId);
+             var UserProjectRole = _projectFacade.GetUserProjectRole(userProjects, ticket.ProjectId);
             var collaborators = await _userProjectService.GetUserCollabsByProjectId(ticket.ProjectId);
             var ticketHistory = ticket.TicketHistory;
             var project = await _projectFacade.FindProjectById(ticket.ProjectId);
 
+            //For ticket history search bar
+            ViewData["CurrentFilter"] = searchString;
 
             if (!String.IsNullOrEmpty(searchString))
             {
