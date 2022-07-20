@@ -46,13 +46,8 @@ namespace Bug_Tracker_V1._0.Controllers
         }
 
 
-        public async Task<IActionResult> Index(int id, string? sortOrder, string? searchString)
+        public async Task<IActionResult> Index(int id, string? sortOrder)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "Project");
-            }
-
             ViewData["DateSortParm"] = String.IsNullOrEmpty(sortOrder) ? "Date_Asc" : "";
 
             var project = await _projectFacade.FindProjectById(id);
@@ -94,20 +89,6 @@ namespace Bug_Tracker_V1._0.Controllers
 
             }
 
-            ViewData["CurrentFilter"] = searchString;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                searchString = searchString.ToLower();
-                sortedTickets = sortedTickets.Where(s => s.AssignedTo.ToLower().Contains(searchString)
-                                       || s.CommentCount.ToString().Contains(searchString)
-                                       || s.Id.ToString().ToLower().Contains(searchString)
-                                       || s.Status.ToString().ToLower().Contains(searchString)
-                                       || s.Title.ToString().ToLower().Contains(searchString)
-                                       || s.Type.ToString().ToLower().Contains(searchString)
-                                       || s.Priority.ToString().Contains(searchString)).ToList();
-
-            }
 
             var vm = new DetailViewModel
             {
@@ -116,6 +97,7 @@ namespace Bug_Tracker_V1._0.Controllers
                 {
                     ProjectUsers = await _projectFacade.GetUserSelectListByProjectId(id),
                     ProjectId = id
+
                 },
                 OpenTicketCount = await _projectFacade.GetProjectTicketCountByStatus(id, Status.Open),
                 ClosedTicketCount = await _projectFacade.GetProjectTicketCountByStatus(id, Status.Closed),
@@ -132,10 +114,6 @@ namespace Bug_Tracker_V1._0.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(DetailViewModel vm)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "Project");
-            }
             // Check if ticket is empty
             if (string.IsNullOrEmpty(vm.TicketCreateVm.Title) || string.IsNullOrEmpty(vm.TicketCreateVm.Description))
                 return RedirectToAction("Index", "Ticket", new { id = vm.Project.ProjectId });
@@ -163,10 +141,7 @@ namespace Bug_Tracker_V1._0.Controllers
 
         public async Task<IActionResult> Details(int id, string? searchString)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "Project");
-            }
+            ViewData["CurrentFilter"] = searchString;
 
             var ticket = await _ticketService.FindOne(id);
             var user = await _projectFacade.GetUser(User);
@@ -176,7 +151,6 @@ namespace Bug_Tracker_V1._0.Controllers
             var ticketHistory = ticket.TicketHistory;
             var project = await _projectFacade.FindProjectById(ticket.ProjectId);
 
-            ViewData["CurrentFilter"] = searchString;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -188,7 +162,7 @@ namespace Bug_Tracker_V1._0.Controllers
             }
 
 
-            if (ticket == null) throw new KeyNotFoundException("Ticket could not be found in the database with the given ID");
+            if (ticket == null) throw new KeyNotFoundException("Project could not be found in the database with the given ID");
 
             var vm = new TicketCreateViewModel
             {
@@ -217,11 +191,6 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PostComment(TicketCreateViewModel tVm)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "Project");
-            }
-
             var ticket = await _ticketService.FindOne(tVm.Ticket.Id);
             var user = await _projectFacade.GetUser(User);
 
@@ -250,10 +219,6 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateTicket(TicketCreateViewModel vm)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "Project");
-            }
 
             var ticket = await _ticketService.FindOne(vm.Ticket.Id);
             var oldPriority = ticket.Priority;
@@ -329,10 +294,6 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTicket(TicketCreateViewModel vm)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "Project");
-            }
             var ticket = await _ticketService.FindOne(vm.Ticket.Id);
 
             ticket.Title = vm.Title;
@@ -349,11 +310,6 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(TicketCreateViewModel vm)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "Project");
-            }
-
             var ticket = await _ticketService.FindOne(vm.Ticket.Id);
             await _projectFacade.RemoveTicketFKs(ticket.Id);
             await _ticketService.Delete(ticket.Id);
@@ -362,11 +318,6 @@ namespace Bug_Tracker_V1._0.Controllers
 
         public async Task<IActionResult> UserTicketList(string? sortOrder)
         {
-            if (!ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "Project");
-            }
-
             var user = await _projectFacade.GetUser(User);
             var sortedTickets = await _projectFacade.GetUserTickets(user);
 
