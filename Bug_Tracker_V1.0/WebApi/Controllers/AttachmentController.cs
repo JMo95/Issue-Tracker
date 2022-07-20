@@ -33,6 +33,11 @@ namespace Bug_Tracker_V1._0.WebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> UploadToDatabase(TicketCreateViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
+
             var ticket = await _ticketService.FindOne(vm.TicketId);
             TempData["returnurl"] = Request.Headers["Referer"].ToString();
             foreach (var file in vm.files)
@@ -65,6 +70,11 @@ namespace Bug_Tracker_V1._0.WebApi.Controllers
 
         public async Task<IActionResult> DownloadFileFromDatabase(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
+
             var file = await _attachmentService.FindOne(id);
             if (file == null) return null;
             return File(file.Data, file.FileType, file.Name + file.Extension);
@@ -72,6 +82,11 @@ namespace Bug_Tracker_V1._0.WebApi.Controllers
 
         public async Task<IActionResult> DeleteFileFromDatabase(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
+
             TempData["returnurl"] = Request.Headers["Referer"].ToString();
             var file = await _attachmentService.FindOne(id);
             await _attachmentService.Delete(id);

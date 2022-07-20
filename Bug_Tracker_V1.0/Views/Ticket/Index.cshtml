@@ -57,8 +57,17 @@
 
                             @if (Model.UserProjectRole == Role.Owner)
                             {
-                                <a href="@Url.Action("Collaborate", "Project", new { id = Model.Project.ProjectId.ToString() })" class="btn bg-yellow-btn rounded-0">Collaborate</a>
+                                <a href="@Url.Action("Collaborate", "Project", new { id = Model.Project.ProjectId.ToString() })" class="btn bg-yellow-btn btn-sm rounded-0">Collaborate</a>
                             }
+                           <br />
+                           <br />
+                            <div>
+                            <form>
+                            <input type="text" placeholder="Search..." name="searchString" value="@ViewData["CurrentFilter"]" />
+                            <button type="submit" value="Search" class="btn bg-yellow rounded-0">Search</button>
+                            <a href="@Url.ActionLink("Index","Ticket",new { id = Model.Project.ProjectId })">Clear Search</a>
+                            </form>
+                            </div>
                             <div class="modal fade" id="newIssue" tabindex="-1" role="dialog" aria-labelledby="newIssue" aria-hidden="true">
                                 <div class="modal-wrapper">
                                     <div class="modal-dialog">

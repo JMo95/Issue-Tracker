@@ -89,11 +89,15 @@ namespace Bug_Tracker_V1._0.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
             var project = await _projectFacade.FindProjectById(id);
 
-            var collaborators = await _userProjectService.GetUserCollabsByProjectId(id);
-
             if (project == null) throw new KeyNotFoundException("Project was not found with provided id");
+
+            var collaborators = await _userProjectService.GetUserCollabsByProjectId(id);
 
             project.ProjectTeamSize = _projectFacade.GetTeamSize(collaborators);
             await _projectService.Update(project);
@@ -108,7 +112,13 @@ namespace Bug_Tracker_V1._0.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
             var project = await _projectFacade.FindProjectById(id);
+
+            if (project == null) throw new KeyNotFoundException("Project could not be found in the database with the given ID");
 
             var vm = new DetailViewModel
             {
@@ -122,21 +132,32 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SubmitEdit(DetailViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
             // Need to find the project before I start updating it.
             // If Im using these new projects it won't update
             // Maybe use detail vm?
-            var projectUpdateEntity = await _projectService.FindOne(vm.Project.ProjectId);
+            var project = await _projectService.FindOne(vm.Project.ProjectId);
 
-            projectUpdateEntity.ProjectName = vm.Project.ProjectName;
-            projectUpdateEntity.ProjectDescription = vm.Project.ProjectDescription;
+            if (project == null) throw new KeyNotFoundException("Project could not be found in the database with the given ID");
 
-            await _projectService.Update(projectUpdateEntity);
+            project.ProjectName = vm.Project.ProjectName;
+            project.ProjectDescription = vm.Project.ProjectDescription;
+
+            await _projectService.Update(project);
 
             return RedirectToAction("Index", "Project");
         }
 
         public async Task<IActionResult> Collaborate(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
+
             var nonCollaborators = await _appUserService.GetAll();
             var collaborators = await _userProjectService.GetUserCollabsByProjectId(id);
             nonCollaborators = nonCollaborators.Where(x => !collaborators.Contains(x));
@@ -161,6 +182,11 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateNotification(CollaborateViewModel vm)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
+
             List<String> selectedCollaborators = vm.SelectedCollaborators;
             //Saves the url with project id query so that after inviting user(s) the page gets reloaded to the same page.
             TempData["returnurl"] = Request.Headers["Referer"].ToString();
@@ -177,6 +203,8 @@ namespace Bug_Tracker_V1._0.Controllers
             // To fix I has to pass the @html.hiddenfor(x => x.ProjectId) to save that property when it got passed back
             // here in the viewmodel
             var project = await _projectService.FindOne(vm.ProjectId);
+
+            if (project == null) throw new KeyNotFoundException("Ticket could not be found in the database with the given ID");
 
             if (vm.SelectedCollaborators.Count > 0)
             {
@@ -213,11 +241,19 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AcceptNotification(int id)
         {
-            Notification notification = await _notificationService.FindOne(id);
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
+
+            var notification = await _notificationService.FindOne(id);
             var projectId = notification.ProjectId;
-            Project project = await _projectFacade.FindProjectById(projectId);
+            var project = await _projectFacade.FindProjectById(projectId);
             var user = await _projectFacade.GetUser(User);
             var collabUsers = await _userProjectService.GetUserCollabsByProjectId(id);
+
+            if (project == null) throw new KeyNotFoundException("Project could not be found in the database with the given ID");
+            if (notification == null) throw new KeyNotFoundException("Notification could not be found in the database with the given ID");
 
             var userProject = new UserProject
             {
@@ -243,8 +279,15 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeclineNotification(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
+
             TempData["returnurl"] = Request.Headers["Referer"].ToString();
-            Notification notification = await _notificationService.FindOne(id);
+            
+            var notification = await _notificationService.FindOne(id);
+            if (notification == null) throw new KeyNotFoundException("Notification   could not be found in the database with the given ID");
             notification.isAcknowledged = true;
             await _notificationService.Update(notification);
             return Redirect(TempData["returnurl"].ToString());
@@ -254,6 +297,11 @@ namespace Bug_Tracker_V1._0.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> PostDelete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Project");
+            }
+
             await _projectFacade.RemoveProjectFKs(id);
             await _projectService.Delete(id);
 
